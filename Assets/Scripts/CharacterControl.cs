@@ -9,8 +9,12 @@ public class CharacterControl : MonoBehaviour
     private Vector3 playerVelocity;
     private float verticalVelocity;
     private float groundedTimer;  
-    private float playerSpeed = 2.0f;
-    private float jumpHeight = 10f;
+    //I am adding a Speed class for player to better control the speed bonus
+    //private float playerSpeed = 2.0f;
+    public Speed playerSpeed;
+
+    //private float jumpHeight = 10f;
+    public jumpHeight jumpHeight;
     private float gravityValue = 9.81f;
 
     // Start is called before the first frame update
@@ -45,14 +49,14 @@ public class CharacterControl : MonoBehaviour
         // gather lateral input control
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         // scale by speed
-        move *= playerSpeed;
+        move *= playerSpeed.getPlayerSpeed();
         // only align to motion if we are providing enough input
         if (move.magnitude > 0.05f)
         {
             gameObject.transform.forward = move;
         }
 
-        // allow jump as long as the player is on the ground
+        // allow jump as long as the p  layer is on the ground
         if (Input.GetButtonDown("Jump"))
         {
             // must have been grounded recently to allow jump
@@ -60,9 +64,12 @@ public class CharacterControl : MonoBehaviour
             {
                 // no more until we recontact ground
                 groundedTimer = 0;
-
+                //Detect if there is boost left.
+                //If there are, -1 count, number bonus is already excuted when eating buffs
+                //else, reset the jump height
+                jumpHeight.useBoost();
                 // Physics dynamics formula for calculating jump up velocity based on height and gravity
-                verticalVelocity += Mathf.Sqrt(jumpHeight * 2 * gravityValue);
+                verticalVelocity += Mathf.Sqrt(jumpHeight.getJumpHeight() * 2 * gravityValue);
                 
                 GameManager.Instance.NewPlayerEvent(GameManager.PlayerEvent.Jump); //trigger jump event
             }
