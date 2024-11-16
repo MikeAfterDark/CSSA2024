@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+    private Dictionary<string, AudioClip> audioClipCache = new Dictionary<string, AudioClip>();
+    private Dictionary<string, GameObject> loopingAudioObjects = new Dictionary<string, GameObject>();
     private void Start()
     {
         if (Instance == null)
@@ -32,11 +35,11 @@ public class AudioManager : MonoBehaviour
         switch (newState)
         {
             case GameManager.GameState.Playing:
-                PlayBackgroundMusic();
+                PlayAudio("DipteraSonata", true); 
                 break;
             case GameManager.GameState.Paused:
             case GameManager.GameState.GameOver:
-                StopBackgroundMusic();
+                StopLoopingAudio("DipteraSonata");
                 break;
         }
     }
@@ -45,23 +48,76 @@ public class AudioManager : MonoBehaviour
         switch (newState)
         {
             case GameManager.PlayerEvent.Jump:
-                PlayJumpAudio();
-                break;
-            case GameManager.PlayerEvent.Sing:
-                PlaySingAudio();
-                break;
-            case GameManager.PlayerEvent.Impact:
-                PlayImpactAudio();
+                PlayAudio("jump");
                 break;
         }
     }
 
-    // Game State
-    private void PlayBackgroundMusic() { /* Audio code here */ }
-    private void StopBackgroundMusic() { /* Audio code here */ }
+    public void PlayAudio(string clipName, bool loop = false)
+    {
+        AudioClip clip = GetAudioClip(clipName);
+        if (clip == null)
+        {
+            Debug.LogError($"Audio clip '{clipName}' not found in Assets/Resources.");
+            return;
+        }
 
-    // Player Events
-    private void PlayJumpAudio() { /* Audio code here */ }
-    private void PlaySingAudio() { /* Audio code here */ }
-    private void PlayImpactAudio() { /* Audio code here */ }
+        if (loop)
+        {
+            StopLoopingAudio(clipName);
+        }
+
+        GameObject audioObject = SpawnAudioObject(clipName, clip, loop);
+        if (loop)
+        {
+            loopingAudioObjects[clipName] = audioObject;
+        }
+    }
+
+    public void StopLoopingAudio(string clipName)
+    {
+        if (loopingAudioObjects.TryGetValue(clipName, out GameObject audioObject))
+        {
+            Destroy(audioObject);
+            loopingAudioObjects.Remove(clipName);
+        }
+    }
+
+    // Get audio clip (loads and caches if not already loaded)
+    private AudioClip GetAudioClip(string clipName)
+    {
+        if (!audioClipCache.ContainsKey(clipName))
+        {
+            AudioClip clip = Resources.Load<AudioClip>($"Audio/Music/{clipName}") 
+                 ?? Resources.Load<AudioClip>($"Audio/SFX/{clipName}");
+
+            if (clip != null)
+            {
+                audioClipCache[clipName] = clip;
+            }
+        }
+
+        audioClipCache.TryGetValue(clipName, out AudioClip cachedClip);
+        return cachedClip;
+    }
+
+    // Utility function to create and play an audio object
+    private GameObject SpawnAudioObject(string name, AudioClip clip, bool loop)
+    {
+        GameObject audioObject = new GameObject(name);
+        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+
+        audioSource.clip = clip;
+        audioSource.loop = loop;
+        audioSource.playOnAwake = false;
+
+        audioSource.Play();
+
+        if (!loop)
+        {
+            Destroy(audioObject, clip.length);
+        }
+
+        return audioObject;
+    }
 }
