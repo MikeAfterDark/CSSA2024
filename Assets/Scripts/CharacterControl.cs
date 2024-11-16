@@ -22,6 +22,8 @@ public class CharacterControl : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
+        playerSpeed = GetComponent<Speed>();
+        jumpHeight = GetComponent<jumpHeight>();
     }
 
     // Update is called once per frame
