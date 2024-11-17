@@ -12,10 +12,12 @@ public class LoopManager : MonoBehaviour
     //Todo: separate spawn manager?
     //array of interactable object
     //array of enemies
+    public static float playerSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerSpeed = 50.0f;
         if (Instance == null)
         {
             Instance = this;
@@ -49,6 +51,7 @@ public class LoopManager : MonoBehaviour
         switch (newPlayerEvent)
         {
             case GameManager.PlayerEvent.Died:
+                playerSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterControl>().playerSpeed.GetPlayerSpeed();
                 GameManager.Instance.UpdateGameState(GameManager.GameState.Looping);
                 break;
         }

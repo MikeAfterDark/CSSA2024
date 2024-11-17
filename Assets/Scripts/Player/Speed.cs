@@ -11,7 +11,7 @@ public class Speed : MonoBehaviour
 
     private void Start()
     {
-        moveSpeed = normalMoveSpeed;
+        moveSpeed = LoopManager.playerSpeed;
     }
 
     public float GetPlayerSpeed(){

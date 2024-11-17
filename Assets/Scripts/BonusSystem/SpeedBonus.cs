@@ -27,8 +27,6 @@ public class SpeedBonus : MonoBehaviour
         playerMovement.playerSpeed.Boost(boostAmount); // increase speed
 
         yield return new WaitForSeconds(boostDuration); // wait some time
-
-        playerMovement.playerSpeed.SetPlayerSpeed (originalSpeed); // recover to origin speed
     }
 
     public void Start(){
