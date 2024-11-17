@@ -14,7 +14,7 @@ public class JumpBonus : MonoBehaviour
             CharacterControl playerMovement = other.GetComponent<CharacterControl>();
             if (playerMovement != null)
             {
-                playerMovement.jumpHeight.boostJumpHeight(targetHeight, boostJumps);
+                playerMovement.jumpHeight.BoostJumpHeight(targetHeight, boostJumps);
             }
             Destroy(gameObject); // delete the object after picking up
         }

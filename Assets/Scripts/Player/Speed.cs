@@ -7,18 +7,18 @@ public class Speed : MonoBehaviour
 {
     [SerializeField]
     private float normalMoveSpeed = 2.0f;
-    private float moveSpeed = 0;
+    private float moveSpeed = 2.0f;
 
     private void Start()
     {
         moveSpeed = normalMoveSpeed;
     }
 
-    public float getPlayerSpeed(){
+    public float GetPlayerSpeed(){
         return moveSpeed;
     }
 
-    public void setPlayerSpeed(float speed){
+    public void SetPlayerSpeed(float speed){
         this.moveSpeed = speed;
     }
 

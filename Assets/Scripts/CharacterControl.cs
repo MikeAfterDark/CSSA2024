@@ -6,10 +6,9 @@ public class CharacterControl : MonoBehaviour
 {
     private CharacterController controller;
     private Health health;
-    private Vector3 playerVelocity;
+    private Vector3 move;
     private float verticalVelocity;
     private float groundedTimer;  
-    //I am adding a Speed class for player to better control the speed bonus
     //private float playerSpeed = 2.0f;
     public Speed playerSpeed;
 
@@ -47,14 +46,18 @@ public class CharacterControl : MonoBehaviour
         }
         // apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
-
         // gather lateral input control
-        Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+        
+        move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        //Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+
         // scale by speed
-        move *= playerSpeed.getPlayerSpeed();
+        move *= playerSpeed.GetPlayerSpeed();
         // only align to motion if we are providing enough input
         if (move.magnitude > 0.05f)
         {
+            //Debug.Log("execute move!");
             gameObject.transform.forward = move;
         }
 
@@ -69,7 +72,7 @@ public class CharacterControl : MonoBehaviour
                 //Detect if there is boost left.
                 //If there are, -1 count, number bonus is already excuted when eating buffs
                 //else, reset the jump height
-                jumpHeight.useBoost();
+                jumpHeight.UseBoost();
                 // Physics dynamics formula for calculating jump up velocity based on height and gravity
                 verticalVelocity += Mathf.Sqrt(jumpHeight.getJumpHeight() * 2 * gravityValue);
                 
