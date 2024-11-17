@@ -6,7 +6,7 @@ public class SpeedBonus : MonoBehaviour
 {
 
     public float boostAmount = 2f; 
-    public float boostDuration = 5f;
+    public float boostDuration = 60f;
 
     private void CollisonDetect(Collider other)
     {
