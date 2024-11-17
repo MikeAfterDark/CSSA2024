@@ -28220,6 +28220,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2226238356852134378, guid: 54a903dc389414e748b3924436ca622e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3094640685049118532}
+    - targetCorrespondingSourceObject: {fileID: 2226238356852134378, guid: 54a903dc389414e748b3924436ca622e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3094640685049118534}
+    - targetCorrespondingSourceObject: {fileID: 2226238356852134378, guid: 54a903dc389414e748b3924436ca622e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3094640685049118533}
   m_SourcePrefab: {fileID: 100100000, guid: 54a903dc389414e748b3924436ca622e, type: 3}
 --- !u!1 &3094640685049118524 stripped
 GameObject:
@@ -28248,6 +28254,32 @@ MonoBehaviour:
   Died:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3094640685049118533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094640685049118524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0201ae45dc44e439258f74979bd9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultJumpHeight: 5
+--- !u!114 &3094640685049118534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094640685049118524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5466f28999b6b34a8e60d8302b0628d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalMoveSpeed: 17.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
