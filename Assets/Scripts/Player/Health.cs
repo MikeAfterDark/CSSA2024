@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,18 +9,11 @@ public class Health : MonoBehaviour
     [SerializeField]
     private int maxHp = 100;
     private int hp;
-    // Start is called before the first frame update
 
-    private void Start()
+    public void Start()
     {
-        hp = maxHp;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        hp = 100;
+    }    
 
     public int Hp
     {
@@ -30,37 +24,32 @@ public class Health : MonoBehaviour
             hp = Mathf.Clamp(value, 0, maxHp);
             if (isDamage)
             {
-                Damaged?.Invoke(hp);
+                GameManager.Instance.NewPlayerEvent(GameManager.PlayerEvent.Damaged);
             }
             else
             {
-                Healed?.Invoke(hp);
+                GameManager.Instance.NewPlayerEvent(GameManager.PlayerEvent.Healed);
             }
 
             if (hp <= 0)
             {
-                Died?.Invoke();
+                GameManager.Instance.NewPlayerEvent(GameManager.PlayerEvent.Died);
             }
         }
     }
 
-    public UnityEvent<int> Healed;
-    public UnityEvent<int> Damaged;
-    public UnityEvent Died;
-
-
     public void Damage(int amount)
     {
-        hp-=amount;
+        Hp-=amount;
     }
 
     public void Heal(int amount)
     {
-        hp+=amount;
+        Hp+=amount;
     }
 
     public void Kill()
     {
-        hp = 0;
+        Hp = 0;
     }
 }
