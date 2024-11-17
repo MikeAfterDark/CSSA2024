@@ -14,11 +14,13 @@ GameObject:
   - component: {fileID: 7070757286228496062}
   - component: {fileID: 7854522815948594659}
   - component: {fileID: 3860170935846743921}
-  - component: {fileID: 2382685180518643300}
   - component: {fileID: -6433526207839150325}
   - component: {fileID: -7327638490545619580}
+  - component: {fileID: 7055304303122622250}
+  - component: {fileID: 6593566186187299885}
+  - component: {fileID: 3473630949952053290}
   m_Layer: 0
-  m_Name: TestPlayerObject
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,9 +34,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2226238356852134378}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.31, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -184.5, y: 2.2, z: -42}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +108,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -152,19 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: {fileID: 0}
   jumpHeight: {fileID: 0}
---- !u!114 &2382685180518643300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2226238356852134378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5466f28999b6b34a8e60d8302b0628d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalMoveSpeed: 2
 --- !u!114 &-6433526207839150325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,3 +182,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostAmount: 2
   boostDuration: 60
+--- !u!114 &7055304303122622250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226238356852134378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5466f28999b6b34a8e60d8302b0628d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalMoveSpeed: 50
+--- !u!114 &6593566186187299885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226238356852134378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0201ae45dc44e439258f74979bd9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultJumpHeight: 5
+--- !u!114 &3473630949952053290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226238356852134378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce3c68d280104ca3b831636aacdb8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
