@@ -47,10 +47,8 @@ public class CharacterControl : MonoBehaviour
         // apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
         // gather lateral input control
-        
-        move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        //Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+        move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
 
         // scale by speed
         move *= playerSpeed.GetPlayerSpeed();
