@@ -6,31 +6,31 @@ public class jumpHeight : MonoBehaviour
 {
     [SerializeField]
     // Start is called before the first frame update
-    private float DefaultJumpHeight = 5f;
-    private float JumpHeight;
+    private float defaultJumpHeight = 5f;
+    private float height;
     private int boostCount;
 
     void Start()
     {
-        JumpHeight = DefaultJumpHeight;
+        height = defaultJumpHeight;
         boostCount = 0;
     }
 
     public float getJumpHeight(){
-        return this.JumpHeight;
+        return this.height;
     }
     
-    public void resetJumpHeight(){
-        this.JumpHeight = DefaultJumpHeight;
+    public void ResetJumpHeight(){
+        this.height = defaultJumpHeight;
     }
 
-    public void boostJumpHeight(float jumpHeight, int addCount){
+    public void BoostJumpHeight(float jumpHeight, int addCount){
         //add jump boost in height
-        this.JumpHeight += jumpHeight;
+        this.height += jumpHeight;
         boostCount += addCount;
     }
                 
-    public int useBoost(){
+    public int UseBoost(){
         //Detect if there is boost left.
         if(boostCount > 0){
             //If there are, -1
@@ -38,7 +38,7 @@ public class jumpHeight : MonoBehaviour
         }
         //reset the jump height if run out of count
         if(boostCount <= 0){
-            resetJumpHeight();
+            ResetJumpHeight();
         }
         return boostCount;
     }

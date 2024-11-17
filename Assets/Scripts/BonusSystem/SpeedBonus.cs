@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpeedBonus : MonoBehaviour
 {
 
-    public float boostAmount = 2f; 
-    public float boostDuration = 60f;
+    public float boostAmount = 10f; 
+    public float boostDuration = 5f;
 
-    private void CollisonDetect(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) // make sure it is player
         {
@@ -23,12 +23,20 @@ public class SpeedBonus : MonoBehaviour
 
     public IEnumerator ApplySpeedBoost(CharacterControl playerMovement)
     {
-        float originalSpeed = playerMovement.playerSpeed.getPlayerSpeed(); // Save origin speed
+        float originalSpeed = playerMovement.playerSpeed.GetPlayerSpeed(); // Save origin speed
         playerMovement.playerSpeed.Boost(boostAmount); // increase speed
 
         yield return new WaitForSeconds(boostDuration); // wait some time
 
-        playerMovement.playerSpeed.setPlayerSpeed (originalSpeed); // recover to origin speed
+        playerMovement.playerSpeed.SetPlayerSpeed (originalSpeed); // recover to origin speed
+    }
+
+    public void Start(){
+
+    }
+
+    public void Update(){
+
     }
 
   
