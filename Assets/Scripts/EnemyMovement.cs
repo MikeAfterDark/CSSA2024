@@ -7,7 +7,8 @@ public class EnemyMovement : MonoBehaviour
     public Transform player;
 
     public float interval = 1f;
-    private float currentTime;              // Reference to the player object
+    public float chasingTime = 3f;              // Time enemy chasing the player then coming back
+    private float chasingTimeReset;
     public float chaseRange = 10f;         // Range within which the enemy will chase the player
 
     private Vector3 initialPosition;
@@ -15,8 +16,15 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        currentTime = 3; 
+        chasingTimeReset = chasingTime;
+
         initialPosition = transform.position;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red; // Set the color of the gizmo
+        Gizmos.DrawWireSphere(transform.position, chaseRange); // Draw a wire sphere around the object
     }
     void Update()
     {
@@ -25,14 +33,21 @@ public class EnemyMovement : MonoBehaviour
 
         if (distanceToPlayer <= chaseRange)
         {
-            currentTime -= Time.deltaTime;
+            chasingTimeReset -= Time.deltaTime;
             // If within chase range, move the enemy towards the player
             ChasePlayer();
         }
 
-        if (currentTime <= 0)
+        if (chasingTimeReset <= 0)
         {
             transform.position = initialPosition;
+
+            chasingTimeReset = chasingTime;
+        }
+        
+        //kill player
+        if(distanceToPlayer == 0){
+
         }
     }
 
