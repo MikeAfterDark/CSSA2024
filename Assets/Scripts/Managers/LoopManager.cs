@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoopManager : MonoBehaviour
 {
-    private static int loopCounter;
+    public static int loopCounter;
     public static LoopManager Instance;
     public GameObject myMobPrefab;
     public GameObject myItemPrefab;
@@ -60,29 +60,6 @@ public class LoopManager : MonoBehaviour
         if (scene.name == "Game")
         {
             loopCounter++;
-            //spawn here
-            SpawnDistractionMob(scene);
-            SpawnPatrolGhost(scene);
-            SpawnItems(scene);
         }
     }
-
-    //These mobs are in a room to distract player
-    private void SpawnDistractionMob(Scene scene)
-    {
-        GameObject gameObject = Instantiate(myMobPrefab, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(0f, 10.0f)), Quaternion.identity);
-        SceneManager.MoveGameObjectToScene(gameObject, scene);
-    }
-
-    private void SpawnPatrolGhost(Scene scene)
-    {
-
-    }
-
-    private void SpawnItems(Scene scene)
-    {
-        GameObject gameObject = Instantiate(myItemPrefab, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(0f, 10.0f)), Quaternion.identity);
-        SceneManager.MoveGameObjectToScene(gameObject, scene);
-    }
-    //Spawn 
 }

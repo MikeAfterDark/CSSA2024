@@ -4,21 +4,19 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 3f;               // Movement speed of the enemy
-    public Transform player;
+    private Transform player;
 
     public float interval = 1f;
     public float chasingTime = 3f;              // Time enemy chasing the player then coming back
     private float chasingTimeReset;
     public float chaseRange = 10f;         // Range within which the enemy will chase the player
 
-    private Vector3 initialPosition;
     private Vector3 targetPosition;        // Target position for the enemy to move towards
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         chasingTimeReset = chasingTime;
-
-        initialPosition = transform.position;
     }
 
     void OnDrawGizmos()
@@ -47,8 +45,9 @@ public class EnemyMovement : MonoBehaviour
         }
         
         //kill player
-        if(distanceToPlayer == 0){
-
+        if(distanceToPlayer <= 8){
+            Health playerHealth = player.GetComponent<Health>();
+            playerHealth.Damage(20);
         }
     }
 

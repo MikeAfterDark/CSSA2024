@@ -33,6 +33,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] rooms;
     private GameObject[] corridors;
     private Transform parent;
+    private int loopCount;
+    private float spawnMultiplier = 1.2f;
 
     public void SpawnInteractableGameObject()
     {
@@ -59,10 +61,14 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemiesInRoom(GameObject room)
     {
-        CalculateCornerPoint(room);
-        Vector3 spawnPoint = GenerateSpawnPoint();
-        GameObject createdObj;
-        createdObj = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, parent.transform);
+        int enemyNum = (int) Math.Round(loopCount * spawnMultiplier);
+        for (int i = 0; i < enemyNum; i++)
+        {
+            CalculateCornerPoint(room);
+            Vector3 spawnPoint = GenerateSpawnPoint();
+            GameObject createdObj;
+            createdObj = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, parent.transform);
+        }
     }
 
     private void SpawnPowerUpInRoom(GameObject room)
@@ -89,6 +95,7 @@ public class SpawnManager : MonoBehaviour
 
     public void Start()
     {
+        loopCount = LoopManager.loopCounter;
         parent = GameObject.FindGameObjectWithTag("Map").transform;
         GetRoomAndCorridor();
         SpawnInteractableGameObject();
