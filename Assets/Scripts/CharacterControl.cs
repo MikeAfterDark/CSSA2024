@@ -9,7 +9,6 @@ public class CharacterControl : MonoBehaviour
     private Vector3 move;
     private float verticalVelocity;
     private float groundedTimer;  
-    //I am adding a Speed class for player to better control the speed bonus
     //private float playerSpeed = 2.0f;
     public Speed playerSpeed;
 
@@ -48,7 +47,11 @@ public class CharacterControl : MonoBehaviour
         // apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
         // gather lateral input control
+        
         move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        //Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+
         // scale by speed
         move *= playerSpeed.GetPlayerSpeed();
         // only align to motion if we are providing enough input
