@@ -32,6 +32,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyPrefab;
     private GameObject[] rooms;
     private GameObject[] corridors;
+    private Transform parent;
 
     public void SpawnInteractableGameObject()
     {
@@ -58,9 +59,10 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemiesInRoom(GameObject room)
     {
-        // CalculateCornerPoint(room);
-        // Vector3 spawnPoint = GenerateSpawnPoint();
-        // Instantiate(enemyPrefab, new Vector3(spawnPoint.x, spawnPoint.y, spawnPoint.z), Quaternion.identity, room.transform);
+        CalculateCornerPoint(room);
+        Vector3 spawnPoint = GenerateSpawnPoint();
+        GameObject createdObj;
+        createdObj = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, parent.transform);
     }
 
     private void SpawnPowerUpInRoom(GameObject room)
@@ -72,10 +74,10 @@ public class SpawnManager : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.JumpBoost:
-                createdObj = Instantiate(jumpBoostPrefab, spawnPoint, Quaternion.identity, room.transform);
+                createdObj = Instantiate(jumpBoostPrefab, spawnPoint, Quaternion.identity, parent.transform);
                 break;
             case PowerUpType.SpeedBoost:
-                createdObj = Instantiate(speedBoostPrefab, spawnPoint, Quaternion.identity, room.transform);
+                createdObj = Instantiate(speedBoostPrefab, spawnPoint, Quaternion.identity, parent.transform);
                 break;
         }
     }
@@ -87,6 +89,7 @@ public class SpawnManager : MonoBehaviour
 
     public void Start()
     {
+        parent = GameObject.FindGameObjectWithTag("Map").transform;
         GetRoomAndCorridor();
         SpawnInteractableGameObject();
     }
