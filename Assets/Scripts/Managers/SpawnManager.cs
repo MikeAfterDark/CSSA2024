@@ -27,34 +27,85 @@ public class SpawnManager : MonoBehaviour
         JumpBoost,
     }
 
+    public GameObject speedBoostPrefab;
+    public GameObject jumpBoostPrefab;
     public GameObject enemyPrefab;
-    public GameObject itemPrefab;
-    public GameObject plane;
+    private GameObject[] rooms;
+    private GameObject[] corridors;
 
-    public void SpawnEnemiesInRoom(GameObject plane)
+    public void SpawnInteractableGameObject()
     {
-        CalculateCornerPoint(plane);
-        Vector3 spawnPoint = FindRandomPoint();
-        Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, plane.transform);
+        //Spawn interactable in room
+        foreach (GameObject room in rooms)
+        {
+            RoomType roomType = RandomEnumValue<RoomType>();
+            switch (roomType)
+            {
+                case RoomType.Enemies:
+                    SpawnEnemiesInRoom(room);
+                    break;
+                case RoomType.PowerUp:
+                    SpawnPowerUpInRoom(room);
+                    break;
+            }
+        }
+       
+        foreach (GameObject corridor in corridors)
+        {
+            SpawnPatrolInCorridor();
+        }
     }
 
-    public void SpawnPowerUpInRoom(GameObject plane)
+    private void SpawnEnemiesInRoom(GameObject room)
     {
-
+        // CalculateCornerPoint(room);
+        // Vector3 spawnPoint = GenerateSpawnPoint();
+        // Instantiate(enemyPrefab, new Vector3(spawnPoint.x, spawnPoint.y, spawnPoint.z), Quaternion.identity, room.transform);
     }
 
-    public void SpawnPatrolInCorridor(GameObject plane)
+    private void SpawnPowerUpInRoom(GameObject room)
+    {
+        CalculateCornerPoint(room);
+        Vector3 spawnPoint = GenerateSpawnPoint();
+        GameObject createdObj;
+        PowerUpType powerUpType = RandomEnumValue<PowerUpType>();
+        switch (powerUpType)
+        {
+            case PowerUpType.JumpBoost:
+                createdObj = Instantiate(jumpBoostPrefab, spawnPoint, Quaternion.identity, room.transform);
+                break;
+            case PowerUpType.SpeedBoost:
+                createdObj = Instantiate(speedBoostPrefab, spawnPoint, Quaternion.identity, room.transform);
+                break;
+        }
+    }
+
+    private void SpawnPatrolInCorridor()
     {
 
     }
 
     public void Start()
     {
-        SpawnEnemiesInRoom(plane);
+        GetRoomAndCorridor();
+        SpawnInteractableGameObject();
+    }
+
+    private T RandomEnumValue<T> ()
+    {
+        var v = Enum.GetValues(typeof (T));
+        System.Random random = new System.Random();
+        return (T) v.GetValue(random.Next(v.Length));
+    }
+
+    private void GetRoomAndCorridor()
+    {
+        rooms = GameObject.FindGameObjectsWithTag("Room");
+        corridors = GameObject.FindGameObjectsWithTag("Corridor");
     }
 
     List<Vector3> Corners = new List<Vector3>();
-    private Vector3 FindRandomPoint()
+    private Vector3 GenerateSpawnPoint()
     {
         float u = UnityEngine.Random.Range(0.0f, 1.0f); 
         float v = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -70,16 +121,22 @@ public class SpawnManager : MonoBehaviour
         EdgeVectors.Add(Corners[3] - Corners[randomCornerIdx]);
         EdgeVectors.Add(Corners[1] - Corners[randomCornerIdx]);
         Vector3 randomPoint = Corners[randomCornerIdx] + u * EdgeVectors[0] + v * EdgeVectors[1];
-        return randomPoint;
+        return new Vector3(randomPoint.x, randomPoint.y + 4, randomPoint.z);
     }
 
     private void CalculateCornerPoint(GameObject plane)
     {
-        List<Vector3> VerticeList = new List<Vector3>(plane.GetComponent<MeshFilter>().sharedMesh.vertices);
+        GameObject tempPlane = Instantiate(plane);
+        Vector3 scaleChange = new Vector3(-2f, 0, -2f);
+        tempPlane.transform.localScale += scaleChange;
+
+        List<Vector3> VerticeList = new List<Vector3>(tempPlane.GetComponent<MeshFilter>().sharedMesh.vertices);
         Corners.Clear();
-        Corners.Add(plane.transform.TransformPoint(VerticeList[0])); //corner points are added to show  on the editor
-        Corners.Add(plane.transform.TransformPoint(VerticeList[10]));
-        Corners.Add(plane.transform.TransformPoint(VerticeList[110]));
-        Corners.Add(plane.transform.TransformPoint(VerticeList[120]));
+        Corners.Add(tempPlane.transform.TransformPoint(VerticeList[0])); //corner points are added to show  on the editor
+        Corners.Add(tempPlane.transform.TransformPoint(VerticeList[10]));
+        Corners.Add(tempPlane.transform.TransformPoint(VerticeList[110]));
+        Corners.Add(tempPlane.transform.TransformPoint(VerticeList[120]));
+
+        Destroy(tempPlane);
     }
 }
