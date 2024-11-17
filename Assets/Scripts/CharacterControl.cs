@@ -49,7 +49,7 @@ public class CharacterControl : MonoBehaviour
         verticalVelocity -= gravityValue * Time.deltaTime;
 
         // gather lateral input control
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
         // scale by speed
         move *= playerSpeed.getPlayerSpeed();
         // only align to motion if we are providing enough input

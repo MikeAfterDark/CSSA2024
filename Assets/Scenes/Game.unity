@@ -7284,8 +7284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501237204}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25688, y: -0.11801793, z: 0.031622816, w: 0.958689}
-  m_LocalPosition: {x: -9.999231, y: 17.700003, z: -26.893377}
+  m_LocalRotation: {x: 0.21481799, y: -0.11928496, z: 0.026444836, w: 0.96898144}
+  m_LocalPosition: {x: -8.704796, y: 18.265455, z: -32.071217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11497,7 +11497,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 20
+  m_CameraDistance: 25
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -25850,6 +25850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1941085267}
   - component: {fileID: 1941085266}
+  - component: {fileID: 1941085268}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -25904,14 +25905,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941085265}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25688, y: -0.11801793, z: 0.031622816, w: 0.958689}
-  m_LocalPosition: {x: -9.999231, y: 17.700003, z: -26.893377}
+  m_LocalRotation: {x: 0.21481799, y: -0.11928496, z: 0.026444836, w: 0.96898144}
+  m_LocalPosition: {x: -8.704796, y: 18.265455, z: -32.071217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 822251698}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30, y: -14.036, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -14.036, z: 0}
+--- !u!114 &1941085268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941085265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1446d9aaf0dfd943ae263931c712362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 100
+  player: {fileID: 3094640685049118540}
+  turn: {x: 0, y: 0}
 --- !u!1 &1946470201
 GameObject:
   m_ObjectHideFlags: 0
@@ -28514,7 +28530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5466f28999b6b34a8e60d8302b0628d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalMoveSpeed: 17.3
+  normalMoveSpeed: 50
 --- !u!4 &3094640685049118540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3870112960875232657, guid: 54a903dc389414e748b3924436ca622e, type: 3}
