@@ -42,6 +42,9 @@ public class UIManager : MonoBehaviour
             case GameManager.GameState.Playing:
                 ShowGameplay();
                 break;
+            case GameManager.GameState.Looping:
+                GameManager.Instance.UpdateGameState(GameManager.GameState.Playing);
+                break;
             case GameManager.GameState.Options:
                 ShowOptions();
                 break;
@@ -119,5 +122,3 @@ public class UIManager : MonoBehaviour
         await Task.WhenAll(unloadTasks);
     }
 }
-
-

@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
+        Init,
         MainMenu,
         Playing,
+        Looping,
         Options,
         Paused,
         GameOver,
@@ -22,6 +24,9 @@ public class GameManager : MonoBehaviour
         Jump,
         Sing,
         Impact,
+        Died,
+        Healed,
+        Damaged,
     }
 
     private GameState currentGameState;
