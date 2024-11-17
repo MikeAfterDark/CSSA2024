@@ -46,12 +46,10 @@ public class CharacterControl : MonoBehaviour
         }
         // apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
-        // gather lateral input control
         
         // move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
-
         // scale by speed
         move *= playerSpeed.GetPlayerSpeed();
         // only align to motion if we are providing enough input
@@ -75,7 +73,7 @@ public class CharacterControl : MonoBehaviour
                 jumpHeight.UseBoost();
                 // Physics dynamics formula for calculating jump up velocity based on height and gravity
                 verticalVelocity += Mathf.Sqrt(jumpHeight.getJumpHeight() * 2 * gravityValue);
-                
+                  Debug.Log("Grounded!");
                 GameManager.Instance.NewPlayerEvent(GameManager.PlayerEvent.Jump); //trigger jump event
             }
         }
